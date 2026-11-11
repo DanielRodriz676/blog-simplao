@@ -8,7 +8,10 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "alembic>=1.20.1",
     "fastapi[standard]>=0.162.4",
+    "pydantic-settings>=2.16.2",
+    "sqlalchemy>=2.1.8",
 ]
 
 [project.scripts]
@@ -51,7 +54,10 @@ extend-exclude = ["*.md", "migrations"]
 poetry_command = ""
 
 [tool.poe.tasks]
-lint = { cmd = "ruff check" }
+lint.sequence = [
+  { cmd = "typos" }, 
+  { cmd = "ruff check" },
+]
 format.sequence = [
   { cmd = "ruff check --fix" },
   { cmd = "ruff format" },
